@@ -24,7 +24,7 @@ function addBooks(req, res) {
 }
 
 function updateBooks(req, res) {
-    const { id } = req.params;
+    const { id } = req.body;
     const { id_user, title, type, author, price, photo } = req.body;
     const book = books.find(b => b.id_book == id);
     if (book) {
@@ -41,7 +41,7 @@ function updateBooks(req, res) {
 }
 
 function deleteBooks(req, res) {
-    const { id } = req.params;
+    const { id } = req.body;
     const index = books.findIndex(b => b.id_book == id);
     if (index !== -1) {
         books.splice(index, 1);

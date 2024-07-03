@@ -1,6 +1,6 @@
 const Book = require('../models/Book');
 
-let book = null;  
+let book = null;
 
 function getBook(req, res) {
     if (book) {
@@ -17,9 +17,8 @@ function addBook(req, res) {
 }
 
 function updateBook(req, res) {
-    const { id } = req.params;
     const { id_user, title, type, author, price, photo } = req.body;
-    if (book && book.id_book == id) {
+    if (book) {
         book.id_user = id_user;
         book.title = title;
         book.type = type;
@@ -33,8 +32,7 @@ function updateBook(req, res) {
 }
 
 function deleteBook(req, res) {
-    const { id } = req.params;
-    if (book && book.id_book == id) {
+    if (book) {
         book = null;
         res.status(200).json({ message: 'Book deleted' });
     } else {
