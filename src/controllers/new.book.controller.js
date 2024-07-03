@@ -1,8 +1,10 @@
 const Book = require('../models/Book');
 
-let book = null;  
+let books = [];
 
-function getBook(req, res) {
+function getBooksById(req, res) {
+    const { id } = req.params;
+    const book = books.find(b => b.id_book == id);
     if (book) {
         res.status(200).json(book);
     } else {
@@ -10,16 +12,22 @@ function getBook(req, res) {
     }
 }
 
-function addBook(req, res) {
-    const { id_book, id_user, title, type, author, price, photo } = req.body;
-    book = new Book(id_book, id_user, title, type, author, price, photo);
-    res.status(201).json(book);
+function getBooks(req, res) {
+    res.status(200).json(books);
 }
 
-function updateBook(req, res) {
+function addBooks(req, res) {
+    const { id_book, id_user, title, type, author, price, photo } = req.body;
+    const newBook = new Book(id_book, id_user, title, type, author, price, photo);
+    books.push(newBook);
+    res.status(201).json(newBook);
+}
+
+function updateBooks(req, res) {
     const { id } = req.params;
     const { id_user, title, type, author, price, photo } = req.body;
-    if (book && book.id_book == id) {
+    const book = books.find(b => b.id_book == id);
+    if (book) {
         book.id_user = id_user;
         book.title = title;
         book.type = type;
@@ -32,14 +40,15 @@ function updateBook(req, res) {
     }
 }
 
-function deleteBook(req, res) {
+function deleteBooks(req, res) {
     const { id } = req.params;
-    if (book && book.id_book == id) {
-        book = null;
+    const index = books.findIndex(b => b.id_book == id);
+    if (index !== -1) {
+        books.splice(index, 1);
         res.status(200).json({ message: 'Book deleted' });
     } else {
         res.status(404).json({ message: 'Book not found' });
     }
 }
 
-module.exports = { getBook, addBook, updateBook, deleteBook };
+module.exports = { getBooks, getBooksById, addBooks, updateBooks, deleteBooks };
