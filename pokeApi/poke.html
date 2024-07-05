@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/pokemon.png">
+    <title>Pokémon API</title>
+    <link rel="stylesheet" href="poke.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Buscar Pokémon</h1>
+        <form id="pokemonForm" class="form-inline justify-content-center mb-4">
+            <input type="text" id="pokemonName" class="form-control mr-2" placeholder="Nombre del Pokémon">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+        <div id="pokemonInfo" class="text-center"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="poke.js"></script>
+</body>
+</html>
