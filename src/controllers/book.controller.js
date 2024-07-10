@@ -3,21 +3,24 @@ const Book = require('../models/Book');
 let book = null;
 
 function getBook(req, res) {
+    let response;
     if (book) {
-        res.status(200).json(book);
+        response = { error: false, codigo: 200, data: book };
     } else {
-        res.status(404).json({ message: 'Book not found' });
+        response = { error: true, codigo: 404, mensaje: 'Book not found' };
     }
+    res.send(response);
 }
 
 function addBook(req, res) {
     const { id_book, id_user, title, type, author, price, photo } = req.body;
     book = new Book(id_book, id_user, title, type, author, price, photo);
-    res.status(201).json(book);
+    res.send({ error: false, codigo: 201, data: book });
 }
 
 function updateBook(req, res) {
     const { id_user, title, type, author, price, photo } = req.body;
+    let response;
     if (book) {
         book.id_user = id_user;
         book.title = title;
@@ -25,19 +28,22 @@ function updateBook(req, res) {
         book.author = author;
         book.price = price;
         book.photo = photo;
-        res.status(200).json(book);
+        response = { error: false, codigo: 200, data: book };
     } else {
-        res.status(404).json({ message: 'Book not found' });
+        response = { error: true, codigo: 404, mensaje: 'Book not found' };
     }
+    res.send(response);
 }
 
 function deleteBook(req, res) {
+    let response;
     if (book) {
         book = null;
-        res.status(200).json({ message: 'Book deleted' });
+        response = { error: false, codigo: 200, mensaje: 'Book deleted' };
     } else {
-        res.status(404).json({ message: 'Book not found' });
+        response = { error: true, codigo: 404, mensaje: 'Book not found' };
     }
+    res.send(response);
 }
 
 module.exports = { getBook, addBook, updateBook, deleteBook };
