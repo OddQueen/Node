@@ -1,12 +1,12 @@
 const express = require('express');
 const cors = require('cors');
-const bookRoutes = require('./routers/book.routers');
+const bookRoutes = require('./routers/book.router');
 const booksRoutes = require('./routers/books.router');
 const errorHandling = require('./error/errorHandling')
 
 const app = express();
 
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 4200);
 
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
     res.status(404).json({
         error: true,
         codigo: 404,
-        message: "Endpoint doesn't found"
+        message: "Endpoint not found"
     });
 });
 
